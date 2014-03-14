@@ -1,0 +1,25 @@
+.navigation {
+	margin-top: 50px;
+}
+
+.endpoint {
+	margin-top: 2em;
+}
+
+h2 {
+	border-bottom: 3px solid #ddd;
+	margin-bottom: 0.5em;
+	color: #014F8A;
+}
+
+code {
+	color: #014F8A;
+}
+
+table {
+	margin-left: 0px;
+}
+
+p.with-icon {
+	margin-left: -18px;
+}
