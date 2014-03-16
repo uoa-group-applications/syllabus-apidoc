@@ -9,7 +9,7 @@
 
 	<groupId>nz.ac.auckland.syllabus</groupId>
 	<artifactId>syllabus-apidoc</artifactId>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>syllabus-apidoc</name>
 
@@ -59,8 +59,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-  <scm>
-    <tag>syllabus-apidoc-1.1</tag>
-  </scm>
 </project>
