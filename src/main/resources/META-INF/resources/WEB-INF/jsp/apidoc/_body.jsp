@@ -32,26 +32,26 @@
             </p>
 
             <c:forEach items="${endpoint.inputDataList}" var="inputData" varStatus="status">
+                <c:if test="${inputData != null}">
+                    <c:choose>
+                        <c:when test="${status.first}">
+                            <%-- show the input elements --%>
+                            <p class="with-icon">
+                                <i class="icon-arrow-right"></i> Input type ${inputData.className}:
+                            </p>
+                        </c:when>
+                        <c:otherwise>
+                            <p>${inputData.className}:</p>
+                        </c:otherwise>
+                    </c:choose>
 
-                <c:choose>
+                    <c:set var="type" value="${inputData}" />
+                    <%@ include file="_typeDescription.jsp" %>
 
-                    <c:when test="${status.first}">
-                        <%-- show the input elements --%>
-                        <p class="with-icon">
-                            <i class="icon-arrow-right"></i> Input type ${inputData.className}:
-                        </p>
-                    </c:when>
-                    <c:otherwise>
-                        <p>${inputData.className}:</p>
-                    </c:otherwise>
-                </c:choose>
-
-                <c:set var="type" value="${inputData}" />
-                <%@ include file="_typeDescription.jsp" %>
+                </c:if>
             </c:forEach>
 
             <c:forEach items="${endpoint.outputDataList}" var="outputData" varStatus="status">
-
                 <c:choose>
 
                     <c:when test="${status.first}">

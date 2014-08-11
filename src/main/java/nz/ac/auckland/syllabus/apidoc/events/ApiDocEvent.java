@@ -2,9 +2,6 @@ package nz.ac.auckland.syllabus.apidoc.events;
 
 import nz.ac.auckland.syllabus.ApiDoc;
 import nz.ac.auckland.syllabus.events.Event;
-import nz.ac.auckland.syllabus.events.EventHandler;
-import nz.ac.auckland.syllabus.payload.EventRequestBase;
-import nz.ac.auckland.syllabus.payload.EventResponseBase;
 
 /**
  * Author: Marnix
@@ -13,13 +10,13 @@ import nz.ac.auckland.syllabus.payload.EventResponseBase;
  */
 @ApiDoc("Api documentation")
 @Event(namespace = "apidoc", name = "apidoc-event-test")
-public class ApiDocEvent implements EventHandler<ApiDocEvent.Input, ApiDocEvent.Output> {
+public class ApiDocEvent{
 
 	public Output handleEvent(Input payload) throws Exception {
 		return new Output();
 	}
 
-	public static class Input extends EventRequestBase {
+	public static class Input{
 
 		@ApiDoc("API input")
 		String input;
@@ -36,7 +33,7 @@ public class ApiDocEvent implements EventHandler<ApiDocEvent.Input, ApiDocEvent.
 		}
 	}
 
-	public static class Output extends EventResponseBase {
+	public static class Output {
 		String echoOutput;
 
 		@ApiDoc("Echoed output")

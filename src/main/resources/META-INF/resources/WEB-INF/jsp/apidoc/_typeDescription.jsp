@@ -25,7 +25,7 @@
                         <td><spring:escapeBody>${data.type}</spring:escapeBody></td>
                         <td><spring:escapeBody>${data.constraints}</spring:escapeBody></td>
                     </tr>
-                    <c:if test="${data.doc}">
+                    <c:if test="${data.doc != null}">
                         <tr>
                             <td><!----></td>
                             <td colspan="2">

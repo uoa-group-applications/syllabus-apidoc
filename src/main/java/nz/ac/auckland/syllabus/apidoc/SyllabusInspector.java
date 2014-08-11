@@ -1,12 +1,13 @@
 package nz.ac.auckland.syllabus.apidoc;
 
 import nz.ac.auckland.common.stereotypes.UniversityComponent;
+import nz.ac.auckland.syllabus.SyllabusContext;
 import nz.ac.auckland.syllabus.events.EventHandler;
-import nz.ac.auckland.syllabus.payload.EventRequestBase;
-import nz.ac.auckland.syllabus.payload.EventResponseBase;
-import org.springframework.beans.factory.annotation.Autowired;
+import nz.ac.auckland.syllabus.events.EventHandlerCollection;
+import nz.ac.auckland.syllabus.generator.EventHandlerConfig;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import java.util.*;
 
 import static nz.ac.auckland.syllabus.apidoc.utils.GenericUtils.getGenericClassAtIndexForEvent;
@@ -34,8 +35,8 @@ public class SyllabusInspector {
 	/**
 	 * A list of all available syllabus services
 	 */
-	@Autowired(required = false)
-	private List<EventHandler<? extends EventRequestBase, ? extends EventResponseBase>> eventHandlers;
+	@Inject
+	private EventHandlerCollection eventHandlerCollection;
 
 	/**
 	 * A list of endpoints that each represent a Syllabus event handler
@@ -47,15 +48,30 @@ public class SyllabusInspector {
 	 */
 	@PostConstruct
 	public void afterInitialization() {
-		this.endpoint = new ArrayList<Endpoint>();
+		endpoint = new ArrayList<Endpoint>();
 
 		// iterate over each handler
-		for (EventHandler handler : this.eventHandlers) {
-			this.endpoint.add(
+		for (EventHandlerConfig handler : eventHandlerCollection.findAll()) {
+			Class inputClazz = null;
+
+			// TODO: should push this back into Syllabus Core.
+			if (handler.getParamaterTypes().length > 1) {
+				if (handler.getParamaterTypes()[0].getTheClass() != SyllabusContext.class) {
+					inputClazz = handler.getParamaterTypes()[0].getTheClass();
+				} else {
+					inputClazz = handler.getParamaterTypes()[1].getTheClass();
+				}
+			} else if ( handler.getParamaterTypes().length == 1) {
+				inputClazz = handler.getParamaterTypes()[0].getTheClass();
+			}
+
+			Class outputClazz = handler.getMethod().getReturnType();
+
+			endpoint.add(
 				new Endpoint(
-					handler.getClass(),
-					this.getInputClassForHandler(handler),
-					this.getOutputClassForHandler(handler)
+					handler.getInstance().getClass(),
+					inputClazz,
+					outputClazz
 				)
 			);
 		}

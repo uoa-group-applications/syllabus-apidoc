@@ -11,13 +11,13 @@ import nz.ac.auckland.syllabus.payload.EventResponseBase
  *
  */
 @Event(namespace = "apidoc", name="groovy-apidoc-event-test")
-class GroovyApiDocEvent implements EventHandler<GroovyApiDocEvent.Input, GroovyApiDocEvent.Output> {
+class GroovyApiDocEvent {
 
 	public Output handleEvent(Input payload) throws Exception {
 		return new Output();
 	}
 
-	public static class Input extends EventRequestBase {
+	public static class Input {
 
 		@ApiDoc("API input on variable")
 		String input;
@@ -34,7 +34,7 @@ class GroovyApiDocEvent implements EventHandler<GroovyApiDocEvent.Input, GroovyA
 		}
 	}
 
-	public static class Output extends EventResponseBase {
+	public static class Output {
 		String echoOutput;
 
 		@ApiDoc("Echoed output")

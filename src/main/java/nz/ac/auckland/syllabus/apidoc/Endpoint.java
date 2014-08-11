@@ -99,14 +99,18 @@ public class Endpoint {
 			this.inputDataList = new ArrayList<EndpointData>();
 
 			List<Class<?>> alsoRead = new ArrayList<Class<?>>();
-			alsoRead.add(this.inputStruct);
 
-			// not empty? process next.
-			while (alsoRead.size() > 0) {
-				Class<?> currentInput = alsoRead.get(0);
-				alsoRead.remove(0);
-				this.inputDataList.add(new EndpointData(currentInput, alsoRead));
+			if (inputStruct != null) {
+				alsoRead.add(this.inputStruct);
+
+				// not empty? process next.
+				while (alsoRead.size() > 0) {
+					Class<?> currentInput = alsoRead.get(0);
+					alsoRead.remove(0);
+					this.inputDataList.add(new EndpointData(currentInput, alsoRead));
+				}
 			}
+
 		}
 
 		return this.inputDataList;
